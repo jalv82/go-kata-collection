@@ -6,7 +6,7 @@ func TestGreeter(t *testing.T) {
 	tests := []struct {
 		description string
 		name        string
-		language    string
+		language    Language
 		want        string
 	}{
 		{description: "English greeting", name: "Codurance", language: "english", want: "Hello, Codurance"},
