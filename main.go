@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"go-kata-collection/fizzbuzz"
+	"go-kata-collection/greeter"
+	"log"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	log.Println(greeter.Greeter("Gophers", greeter.English))
+
+	log.Println(fizzbuzz.FizzBuzz(3))
 }
