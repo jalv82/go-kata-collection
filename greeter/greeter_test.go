@@ -13,6 +13,7 @@ func TestGreeter(t *testing.T) {
 	}{
 		{description: "English greeting", name: name, language: English, want: "Hello, Codurance"},
 		{description: "Spanish greeting", name: name, language: Spanish, want: "Hola, Codurance"},
+		{description: "Italian greeting", name: name, language: Italian, want: "Ciao, Codurance"},
 	}
 
 	for _, test := range tests {

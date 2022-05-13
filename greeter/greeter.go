@@ -6,6 +6,7 @@ type Language string
 
 const (
 	English Language = "english"
+	Italian Language = "italian"
 	Spanish Language = "spanish"
 )
 
@@ -21,6 +22,8 @@ func selector(language Language) string {
 	switch language {
 	case English:
 		greet = "Hello"
+	case Italian:
+		greet = "Ciao"
 	case Spanish:
 		greet = "Hola"
 	}
