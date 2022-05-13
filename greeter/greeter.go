@@ -4,6 +4,11 @@ import "fmt"
 
 type Language string
 
+const (
+	English Language = "english"
+	Spanish Language = "spanish"
+)
+
 func Greeter(name string, language Language) string {
 	greet := selector(language)
 
@@ -14,9 +19,9 @@ func selector(language Language) string {
 	var greet string
 
 	switch language {
-	case "english":
+	case English:
 		greet = "Hello"
-	case "spanish":
+	case Spanish:
 		greet = "Hola"
 	}
 
