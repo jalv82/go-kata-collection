@@ -3,11 +3,24 @@ package greeter
 import "testing"
 
 func TestGreeter(t *testing.T) {
-	got := Greeter("Codurance")
+	tests := []struct {
+		description string
+		name        string
+		language    string
+		want        string
+	}{
+		{description: "English greeting", name: "Codurance", language: "english"},
+	}
 
-	want := "Hello, Codurance"
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			got := Greeter("Codurance")
 
-	if got != want {
-		t.Errorf("Got: %v != Want: %v", got, want)
+			want := "Hello, Codurance"
+
+			if got != want {
+				t.Errorf("Got: %v != Want: %v", got, want)
+			}
+		})
 	}
 }
