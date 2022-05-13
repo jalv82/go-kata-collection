@@ -1,5 +1,7 @@
 package greeter
 
-func Greeter(s string) string {
-	return "Hello, Coudurance"
+import "fmt"
+
+func Greeter(name string) string {
+	return fmt.Sprintf("Hello, %v", name)
 }
