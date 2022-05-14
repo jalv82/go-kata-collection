@@ -6,9 +6,9 @@ import (
 )
 
 func TestSum(t *testing.T) {
-	got := Sum(2, 3)
+	got := Sum(2, 3, 5)
 
-	want := 5
+	want := 10
 
-	assert.Equal(t, want, got, "Should sum two number of type integer")
+	assert.Equal(t, want, got, "Should sum any quantity of numbers of type integer")
 }
