@@ -39,3 +39,14 @@ func TestBuy(t *testing.T) {
 		})
 	}
 }
+
+func TestCalculateDiscount(t *testing.T) {
+	record := Record{
+		Price: 25.0,
+	}
+
+	got := record.Discount(10.0)
+	var want float32 = 2.5
+
+	assert.Equal(t, want, got, "They should be equal")
+}

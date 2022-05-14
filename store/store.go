@@ -6,6 +6,7 @@ type Record struct {
 	Title  string
 	Artist string
 	Copies uint
+	Price  float32
 }
 
 func (r *Record) Buy(quantity uint) error {
@@ -16,4 +17,8 @@ func (r *Record) Buy(quantity uint) error {
 	r.Copies -= quantity
 
 	return nil
+}
+
+func (r *Record) Discount(percentage float32) float32 {
+	return (percentage * r.Price) / 100
 }
