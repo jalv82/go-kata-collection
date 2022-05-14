@@ -1,6 +1,7 @@
 package store
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 )
@@ -33,4 +34,8 @@ func (r *Record) Discount(percentage float32) (float32, error) {
 	}
 
 	return (percentage * r.Price) / 100, nil
+}
+
+func (r *Record) Details() ([]byte, error) {
+	return json.Marshal(r)
 }

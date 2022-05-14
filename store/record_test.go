@@ -27,7 +27,6 @@ func TestBuy(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
-
 			err := test.record.Buy(test.copiesToBuy)
 			if err != nil {
 				assert.Error(t, err)
@@ -35,7 +34,7 @@ func TestBuy(t *testing.T) {
 
 			got := test.record.Copies
 
-			assert.Equal(t, test.want, got)
+			assert.Equal(t, test.want, got, test.description)
 		})
 	}
 }
@@ -71,7 +70,25 @@ func TestCalculateDiscount(t *testing.T) {
 			if err != nil {
 				assert.Error(t, err)
 			}
-			assert.Equal(t, test.want, got)
+
+			assert.Equal(t, test.want, got, test.description)
 		})
 	}
+}
+
+func TestDetails(t *testing.T) {
+	record := Record{
+		Title:        "The Jar Dance",
+		Artist:       "Chiquito de la calzada",
+		Copies:       10,
+		Price:        12.99,
+		IsDiscounted: false,
+	}
+
+	json, _ := record.Details()
+
+	got := string(json)
+	want := "{\"Title\":\"The Jar Dance\",\"Artist\":\"Chiquito de la calzada\",\"Copies\":10,\"Price\":12.99,\"IsDiscounted\":false}"
+
+	assert.Equal(t, got, want, "Should show all details of record in json format")
 }
