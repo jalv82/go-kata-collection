@@ -1,7 +1,15 @@
 package generics
 
+type Integer interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64
+}
+
+type Float interface {
+	~float32 | ~float64
+}
+
 type MyNumber interface {
-	int | int8 | int16 | int32 | int64 | float32 | float64
+	Integer | Float
 }
 
 func Sum[T MyNumber](numbers ...T) T {
