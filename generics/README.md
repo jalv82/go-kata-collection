@@ -1,5 +1,5 @@
 
-# Kata Sum
+# Kata Sum with Generics
 Description: 
 
 We want can sum any kinds of numbers and any quantity of them
