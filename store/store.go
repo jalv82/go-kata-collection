@@ -1,6 +1,9 @@
 package store
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type Record struct {
 	Title        string
@@ -23,6 +26,10 @@ func (r *Record) Buy(quantity uint) error {
 func (r *Record) Discount(percentage float32) (float32, error) {
 	if !r.IsDiscounted {
 		return 0, errors.New("error: not exists discount")
+	}
+
+	if percentage <= 0 {
+		return 0, errors.New(fmt.Sprintf("error: not is possible apply this discount (%.2f %%)", percentage))
 	}
 
 	return (percentage * r.Price) / 100, nil

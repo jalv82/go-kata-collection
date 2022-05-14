@@ -58,6 +58,11 @@ func TestCalculateDiscount(t *testing.T) {
 			record:             Record{Price: 25.0, IsDiscounted: false},
 			discountPercentage: 10.0,
 		},
+		{
+			description:        "Should return an error when not is possible calculated the 0% of discount",
+			record:             Record{Price: 25.0, IsDiscounted: true},
+			discountPercentage: 0.0,
+		},
 	}
 
 	for _, test := range tests {
