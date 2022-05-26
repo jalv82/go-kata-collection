@@ -1,4 +1,4 @@
-module go-kata-collection
+module store
 
 go 1.18
 

@@ -1,26 +1,13 @@
 package main
 
 import (
-	"go-kata-collection/fizzbuzz"
-	"go-kata-collection/generics"
-	"go-kata-collection/greeter"
-	"go-kata-collection/store"
 	"log"
+	"store"
 )
 
 func main() {
-	log.Println("# Greeter")
-	log.Println(greeter.Greeter("Gophers", greeter.English))
-
-	log.Println("# FizzBuzz")
-	log.Println(fizzbuzz.FizzBuzz(3))
-
 	log.Println("# Store Record")
 	playStoreRecord()
-
-	log.Println("# Sum with Generics")
-	log.Println("Integers: ", generics.Sum(3, 4, 5, 6))
-	log.Println("Floats: ", generics.Sum(3.6, 4.5, 5.4, 6.3))
 }
 
 func playStoreRecord() {
@@ -39,5 +26,4 @@ func playStoreRecord() {
 
 	json, _ := record.Details()
 	log.Println(string(json))
-
 }
