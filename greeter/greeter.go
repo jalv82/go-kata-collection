@@ -1,6 +1,9 @@
 package greeter
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+)
 
 type Language string
 
@@ -10,10 +13,10 @@ const (
 	Spanish Language = "spanish"
 )
 
-func Greeter(name string, language Language) string {
+func Greeter(out io.Writer, name string, language Language) {
 	greet := selector(language)
 
-	return fmt.Sprintf("%v, %v", greet, name)
+	_, _ = fmt.Fprintf(out, "%v, %v", greet, name)
 }
 
 func selector(language Language) string {

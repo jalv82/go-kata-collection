@@ -3,9 +3,12 @@ package main
 import (
 	"greeter"
 	"log"
+	"os"
 )
+
+const name = "Gophers"
 
 func main() {
 	log.Println("# Greeter")
-	log.Println(greeter.Greeter("Gophers", greeter.English))
+	greeter.Greeter(os.Stdout, name, greeter.English)
 }

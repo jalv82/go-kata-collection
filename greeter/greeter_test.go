@@ -1,6 +1,9 @@
 package greeter
 
-import "testing"
+import (
+	"bytes"
+	"testing"
+)
 
 const name string = "Codurance"
 
@@ -18,7 +21,10 @@ func TestGreeter(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
-			got := Greeter(name, test.language)
+			buffer := &bytes.Buffer{}
+
+			Greeter(buffer, name, test.language)
+			got := buffer.String()
 
 			if got != test.want {
 				t.Errorf("Got: %v != Want: %v", got, test.want)
