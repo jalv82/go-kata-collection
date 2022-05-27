@@ -23,3 +23,7 @@ func (w *Wallet) Deposit(amount BTC) error {
 func (w Wallet) Balance() BTC {
 	return w.balance
 }
+
+func (w *Wallet) Withdraw(amount BTC) {
+	w.balance -= amount
+}

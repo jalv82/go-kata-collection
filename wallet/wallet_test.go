@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestDeposit(t *testing.T) {
+func TestDepositAmount(t *testing.T) {
 	tests := []struct {
 		description string
 		wallet      Wallet
@@ -32,8 +32,8 @@ func TestForbiddenNegativeOrZeroAmountDeposit(t *testing.T) {
 		wallet      Wallet
 		amount      BTC
 	}{
-		{description: "Should return an error when when try deposit -22.0 BTC on the wallet", wallet: Wallet{}, amount: -22.0},
-		{description: "Should return an error when when try deposit 0.0 BTC on the wallet", wallet: Wallet{}, amount: 0.0},
+		{description: "Should return an error when try deposit -22.0 BTC on the wallet", wallet: Wallet{}, amount: -22.0},
+		{description: "Should return an error when try deposit 0.0 BTC on the wallet", wallet: Wallet{}, amount: 0.0},
 	}
 
 	for _, test := range tests {
@@ -46,4 +46,30 @@ func TestForbiddenNegativeOrZeroAmountDeposit(t *testing.T) {
 			assert.Equal(t, want, got, test.description)
 		})
 	}
+}
+
+func TestWithdrawAmount(t *testing.T) {
+	tests := []struct {
+		description   string
+		wallet        Wallet
+		amount        BTC
+		balanceBefore BTC
+		balanceAfter  BTC
+	}{
+		{description: "Should withdraw 22.0 BTC from the wallet than have 100.0 BTC", wallet: Wallet{}, amount: 22.0, balanceBefore: 100.0, balanceAfter: 78.0},
+		{description: "Should withdraw 1.11 BTC from the wallet than have 100.0 BTC", wallet: Wallet{}, amount: 1.11, balanceBefore: 100.0, balanceAfter: 98.89},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			_ = test.wallet.Deposit(test.balanceBefore)
+			test.wallet.Withdraw(test.amount)
+
+			want := test.balanceAfter
+			got := test.wallet.Balance()
+
+			assert.Equal(t, want, got, test.description)
+		})
+	}
+
 }
