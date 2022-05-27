@@ -9,6 +9,7 @@ type Wallet struct {
 }
 
 var ErrorForbiddenDeposit = errors.New("forbidden deposit negative or zero amount")
+var ErrorForbiddenWithdraw = errors.New("forbidden withdraw greater than balance")
 
 func (w *Wallet) Deposit(amount BTC) error {
 	if amount <= 0 {
@@ -24,6 +25,12 @@ func (w Wallet) Balance() BTC {
 	return w.balance
 }
 
-func (w *Wallet) Withdraw(amount BTC) {
+func (w *Wallet) Withdraw(amount BTC) error {
+	if amount > w.balance {
+		return ErrorForbiddenWithdraw
+	}
+
 	w.balance -= amount
+
+	return nil
 }

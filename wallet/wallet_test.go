@@ -56,20 +56,46 @@ func TestWithdrawAmount(t *testing.T) {
 		balanceBefore BTC
 		balanceAfter  BTC
 	}{
-		{description: "Should withdraw 22.0 BTC from the wallet than have 100.0 BTC", wallet: Wallet{}, amount: 22.0, balanceBefore: 100.0, balanceAfter: 78.0},
-		{description: "Should withdraw 1.11 BTC from the wallet than have 100.0 BTC", wallet: Wallet{}, amount: 1.11, balanceBefore: 100.0, balanceAfter: 98.89},
+		{description: "Should withdraw 22.0 BTC from the wallet than have 100.0 BTC of balance", wallet: Wallet{}, amount: 22.0, balanceBefore: 100.0, balanceAfter: 78.0},
+		{description: "Should withdraw 1.11 BTC from the wallet than have 100.0 BTC of balance", wallet: Wallet{}, amount: 1.11, balanceBefore: 100.0, balanceAfter: 98.89},
 	}
 
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
 			_ = test.wallet.Deposit(test.balanceBefore)
-			test.wallet.Withdraw(test.amount)
 
 			want := test.balanceAfter
+			err := test.wallet.Withdraw(test.amount)
 			got := test.wallet.Balance()
 
+			assert.Nil(t, err)
 			assert.Equal(t, want, got, test.description)
 		})
 	}
+}
 
+func TestForbiddenWithdrawAmountGreaterThanBalance(t *testing.T) {
+	tests := []struct {
+		description   string
+		wallet        Wallet
+		amount        BTC
+		balanceBefore BTC
+		balanceAfter  BTC
+	}{
+		{description: "Should return an error when try withdraw 22.0 BTC from the wallet than have 10.0 BTC of balance", wallet: Wallet{}, amount: 22.0, balanceBefore: 10.0, balanceAfter: 10.0},
+		{description: "Should return an error when try withdraw 1.11 BTC from the wallet than have 0.0 BTC of balance", wallet: Wallet{}, amount: 1.11, balanceBefore: 0.0, balanceAfter: 0.0},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			_ = test.wallet.Deposit(test.balanceBefore)
+
+			want := test.balanceAfter
+			err := test.wallet.Withdraw(test.amount)
+			got := test.wallet.Balance()
+
+			assert.NotNil(t, err)
+			assert.Equal(t, want, got, test.description)
+		})
+	}
 }
