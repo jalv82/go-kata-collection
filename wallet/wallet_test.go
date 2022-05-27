@@ -6,16 +6,6 @@ import (
 )
 
 func TestDeposit(t *testing.T) {
-	wallet := Wallet{}
-	wallet.Deposit(BTC(12.5))
-
-	want := BTC(12.5)
-	got := wallet.Balance()
-
-	assert.Equal(t, want, got)
-}
-
-func Test(t *testing.T) {
 	tests := []struct {
 		description string
 		wallet      Wallet
@@ -27,10 +17,33 @@ func Test(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
-			test.wallet.Deposit(test.amount)
+			err := test.wallet.Deposit(test.amount)
 			got := test.wallet.Balance()
 
+			assert.Nil(t, err)
 			assert.Equal(t, test.amount, got, test.description)
+		})
+	}
+}
+
+func TestForbiddenNegativeOrZeroAmountDeposit(t *testing.T) {
+	tests := []struct {
+		description string
+		wallet      Wallet
+		amount      BTC
+	}{
+		{description: "Should return an error when when try deposit -22.0 BTC on the wallet", wallet: Wallet{}, amount: -22.0},
+		{description: "Should return an error when when try deposit 0.0 BTC on the wallet", wallet: Wallet{}, amount: 0.0},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			want := test.wallet.Balance()
+			err := test.wallet.Deposit(test.amount)
+			got := test.wallet.Balance()
+
+			assert.NotNil(t, err)
+			assert.Equal(t, want, got, test.description)
 		})
 	}
 }
